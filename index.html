@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>빵집 재고 관리</title>
+  <style>
+    /* ===== 1단계: 뼈대용 최소 스타일 (디자인은 3단계에서) ===== */
+    body { font-family: sans-serif; margin: 16px; }
+    section { border: 1px solid #999; padding: 12px; margin-bottom: 12px; }
+    h1, h2 { margin: 0 0 8px; }
+    ul { margin: 0; padding-left: 20px; }
+  </style>
+</head>
+<body>
+  <h1>빵집 재고 관리</h1>
+
+  <!-- 1. 발주 알림 영역 -->
+  <section id="alert-area">
+    <h2>발주 알림</h2>
+    <p id="alert-message">(2단계에서 채워짐)</p>
+  </section>
+
+  <!-- 2. 재고 목록 (재료 5줄) -->
+  <section id="stock-area">
+    <h2>재고 목록</h2>
+    <ul id="stock-list">
+      <li data-name="밀가루">밀가루 — 수량: - / 발주 기준: 5개 / 상태: -</li>
+      <li data-name="버터">버터 — 수량: - / 발주 기준: 5개 / 상태: -</li>
+      <li data-name="우유">우유 — 수량: - / 발주 기준: 5개 / 상태: -</li>
+      <li data-name="설탕">설탕 — 수량: - / 발주 기준: 5개 / 상태: -</li>
+      <li data-name="달걀">달걀 — 수량: - / 발주 기준: 5개 / 상태: -</li>
+    </ul>
+  </section>
+
+  <!-- 3. 입출고 기록 입력 -->
+  <section id="record-area">
+    <h2>입출고 기록</h2>
+    <form id="record-form">
+      <label>재료
+        <select id="record-item">
+          <option>밀가루</option>
+          <option>버터</option>
+          <option>우유</option>
+          <option>설탕</option>
+          <option>달걀</option>
+        </select>
+      </label>
+      <label><input type="radio" name="record-type" value="in" checked> 입고</label>
+      <label><input type="radio" name="record-type" value="out"> 출고</label>
+      <label>수량
+        <input type="number" id="record-qty" min="1" step="1">
+      </label>
+      <button type="submit">기록</button>
+    </form>
+    <p id="record-message"></p>
+  </section>
+
+  <!-- 4. 최근 입출고 내역 -->
+  <section id="history-area">
+    <h2>최근 입출고 내역</h2>
+    <ul id="history-list">
+      <li>(기록 없음)</li>
+    </ul>
+  </section>
+
+  <script>
+    // ===== 데이터 틀 =====
+    const STORAGE_KEY = 'bakery-stock-v1';
+    const DEFAULT_THRESHOLD = 5;
+
+    // 재료: 이름, 현재 재고, 발주 기준 수량
+    const DEFAULT_ITEMS = [
+      { name: '밀가루', stock: 0, threshold: DEFAULT_THRESHOLD },
+      { name: '버터',   stock: 0, threshold: DEFAULT_THRESHOLD },
+      { name: '우유',   stock: 0, threshold: DEFAULT_THRESHOLD },
+      { name: '설탕',   stock: 0, threshold: DEFAULT_THRESHOLD },
+      { name: '달걀',   stock: 0, threshold: DEFAULT_THRESHOLD }
+    ];
+
+    // 입출고 기록: { time, name, type: 'in' | 'out', qty }
+    // 앱 상태
+    let state = {
+      items: DEFAULT_ITEMS.map(function (item) { return Object.assign({}, item); }),
+      records: []
+    };
+
+    // ===== 저장·불러오기 자리 (2단계에서 구현) =====
+    function loadState() { /* TODO(2단계): localStorage에서 읽기 */ }
+    function saveState() { /* TODO(2단계): localStorage에 쓰기 */ }
+
+    // ===== 화면 그리기 자리 (2단계에서 구현) =====
+    function render() { /* TODO(2단계): 알림·재고 목록·내역 갱신 */ }
+  </script>
+</body>
+</html>
